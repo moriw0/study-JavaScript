@@ -6,6 +6,10 @@ body {
     Hiragino Sans, ヒラギノ角ゴ ProN W3, Arial, メイリオ, Meiryo, sans-serif;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .wrapper {
   max-width: 560px;
   margin: auto;
@@ -54,6 +58,10 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+/*
+ * モーダル部分・５章で追加
+ */
+
 .c-overlay {
   position: fixed;
   top: 0;
@@ -61,4 +69,60 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-overlay.is-closed {
+  display: none;
+}
+
+.c-overlay__inner {
+  box-sizing: border-box;
+  position: absolute;
+  max-width: 640px;
+  width: 100%;
+  padding: 24px 24px;
+  background-color: #fff;
+}
+
+.c-overlay__header {
+   margin-bottom: 24px;
+   text-align: center;
+}
+
+.c-overlay__heading {
+   margin-bottom: 16px;
+   font-size: 21px;
+   font-weight: bold;
+}
+
+.c-overlay__footer {
+   margin-top: 24px;
+}
+
+/**
+*  設定画面
+*/
+
+.p-seat-setting__item {
+   margin-top: 16px;
+}
+
+.input-field {
+   background-color: transparent;
+   border: none;
+   border-bottom: 1px solid #9e9e9e;
+   border-radius: 0;
+   outline: none;
+   height: 3rem;
+   width: 100%;
+   font-size: 1rem;
+   margin: 0 0 15px 0;
+   padding: 0;
+   box-shadow: none;
+
+   box-sizing: content-box;
+   transition: all 0.3s;
 }
