@@ -1,11 +1,18 @@
-const studentNumberList = [];
+let studentNumberList = [];
 
 const setTargetStudents = function(studentNumber){
-  console.log(studentNumber);
-  　for(let i = 1; i <= studentNumber;i++){
+  for(let i = 1; i <= studentNumber;i++){
     studentNumberList.push(i);
-    }
   }
+  const absenteeNumbers = document.querySelector("#absence").value;
+  const splitedAbsenteeNumbers = absenteeNumbers.split(",").map(function(item, index){
+    return parseInt(item);
+  });
+
+  studentNumberList = studentNumberList.filter(function(student){
+    return !splitedAbsenteeNumbers.includes(student);
+  })
+}
 
 
 const shuffleArray = function(){
