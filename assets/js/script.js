@@ -1,6 +1,6 @@
-let studentNumberList = [];
-
 const setTargetStudents = function(studentNumber){
+  let studentNumberList = [];
+
   for(let i = 1; i <= studentNumber;i++){
     studentNumberList.push(i);
   }
@@ -12,28 +12,33 @@ const setTargetStudents = function(studentNumber){
   studentNumberList = studentNumberList.filter(function(student){
     return !splitedAbsenteeNumbers.includes(student);
   })
+
+  return studentNumberList;
 }
 
 
-const shuffleArray = function(){
+const shuffleArray = function(studentNumberList){
   for(let i = studentNumberList.length; i > 0; i--){
     const randomNum = Math.floor(Math.random() * i);
     let tmp = studentNumberList[i - 1];
     studentNumberList[i - 1] = studentNumberList[randomNum];
     studentNumberList[randomNum] = tmp;
   }
+
+  return studentNumberList;
 }
 
- const showSeatBoxes = function(){
+ const showSeatBoxes = function(shuffleStudent){
   let insertHTML = '';
-  studentNumberList.forEach(function(num){
-    insertHTML += '<div class="seat__item">' + num + '</div>';
+  shuffleStudent.forEach(function(num){
+    insertHTML += `<div class="seat__item">${num}</div>`;
   })
 
   document.querySelector('#seat').innerHTML = insertHTML;
+  
  }
 
- const soundPlay = function(){
+ const soundPlay = function(timer){
   const audioElement = new Audio();
   audioElement.src = 'assets/audio/drum.mp3';
   audioElement.play();
@@ -45,15 +50,26 @@ const shuffleArray = function(){
 
 document.querySelector('#btn-start').addEventListener('click', function(){
   const studentNumber = document.querySelector("#studentNumber").value;
+  const studentNumberIsEmpty = studentNumber === "";
+  const studentUpperlimit = 50;
+  
+
+  if(studentNumberIsEmpty){
+    alert('空だよ');
+    return false;
+  }
+  if(studentNumber > studentUpperlimit){
+    alert(`${studentUpperlimit}以下でよろ`);
+    return false;
+  }
   document.querySelector('.c-overlay').classList.add("is-closed");
 
-  console.log(studentNumber);
-  setTargetStudents(studentNumber);
+  const studentNumberList = setTargetStudents(studentNumber);
 
-  timer = setInterval(function(){
-    shuffleArray();
-    showSeatBoxes();
+  const timer = setInterval(function(){
+    const shuffleStudent = shuffleArray(studentNumberList);
+    showSeatBoxes(shuffleStudent);
   },50);
   
-  soundPlay();
+  soundPlay(timer);
 });
